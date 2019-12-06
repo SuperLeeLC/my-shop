@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- ===============================  使用xml 配置方式 ============================ -->
+
+<!--    <bean id="springContext" class="com.superlee.my.shop.commons.context.SpringContext" />-->
+
+<!--    &lt;!&ndash;  Dao  &ndash;&gt;-->
+<!--    <bean id="userDao" class="com.superlee.my.shop.dao.impl.UserDaoImpl" />-->
+
+<!--    &lt;!&ndash;  Service  &ndash;&gt;-->
+<!--    <bean id="userService" class="com.superlee.my.shop.service.impl.UserServiceImpl" />-->
+
+
+  <!-- =========================== 使用注解方式 ====================================== -->
+
+    <context:annotation-config />
+    <context:component-scan base-package="com.superlee.my.shop.web.admin" />
+</beans>
