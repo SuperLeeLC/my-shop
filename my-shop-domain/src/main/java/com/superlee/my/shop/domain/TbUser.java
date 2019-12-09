@@ -17,7 +17,7 @@ public class TbUser implements Serializable {
     private String phone;
     private String email;
     private Date created;
-    private Date update;
+    private Date updated;
 
     public Long getId() {
         return id;
@@ -68,11 +68,11 @@ public class TbUser implements Serializable {
     }
 
     public Date getUpdate() {
-        return update;
+        return updated;
     }
 
     public void setUpdate(Date update) {
-        this.update = update;
+        this.updated = update;
     }
 
     @Override
@@ -84,7 +84,7 @@ public class TbUser implements Serializable {
                 ", phone='" + phone + '\'' +
                 ", email='" + email + '\'' +
                 ", created=" + created +
-                ", update=" + update +
+                ", update=" + updated +
                 '}';
     }
 }

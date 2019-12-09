@@ -1,6 +1,7 @@
 package com.superlee.my.shop.web.admin.web.interceptor;
 
 import com.superlee.my.shop.commons.constant.ConstantUtils;
+import com.superlee.my.shop.domain.TbUser;
 import com.superlee.my.shop.domain.User;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,7 +27,7 @@ public class PermissionInterceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {
         // 以login结尾的请求
         if (modelAndView.getViewName().endsWith("login")) {
-            User user = (User) httpServletRequest.getSession().getAttribute(ConstantUtils.SESSION_USER);
+            TbUser user = (TbUser) httpServletRequest.getSession().getAttribute(ConstantUtils.SESSION_USER);
             if (user != null) {
                 httpServletResponse.sendRedirect("/main");
             }
