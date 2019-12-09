@@ -17,18 +17,18 @@ import java.util.List;
  * 描述 :    TODO
  */
 
-//@RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(locations = {"classpath:spring-context.xml", "classpath:spring-context-druid.xml", "classpath:spring-context-mybatis.xml", "classpath:spring-mvc.xml", "classpath:mybatis-config.xml"})
-//public class TbUserServiceTest {
-//
-//    @Autowired
-//    private TbUserService tbUserService;
-//
-//    @Test
-//    public void testSelectAll() {
-//        List<TbUser> tbUsers = tbUserService.selectAll();
-//        for (TbUser tbUser : tbUsers) {
-//            System.out.println(tbUser.getUsername());
-//        }
-//    }
-//}
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {"classpath:spring-context.xml", "classpath:spring-context-druid.xml", "classpath:spring-context-mybatis.xml"})
+public class TbUserServiceTest {
+
+    @Autowired
+    private TbUserService tbUserService;
+
+    @Test
+    public void testSelectAll() {
+        List<TbUser> tbUsers = tbUserService.selectAll();
+        for (TbUser tbUser : tbUsers) {
+            System.out.println(tbUser.getUsername());
+        }
+    }
+}
