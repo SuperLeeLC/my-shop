@@ -1,5 +1,6 @@
 package com.superlee.my.shop.web.admin.service;
 
+import com.superlee.my.shop.commons.dto.BaseResult;
 import com.superlee.my.shop.domain.TbUser;
 import org.springframework.util.FastByteArrayOutputStream;
 
@@ -16,7 +17,7 @@ public interface TbUserService {
 
     List<TbUser> selectAll();
 
-    void insert(TbUser tbUser);
+    BaseResult save(TbUser tbUser);
 
     void delete(Long id);
 

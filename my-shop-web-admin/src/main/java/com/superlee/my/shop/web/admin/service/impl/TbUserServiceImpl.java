@@ -1,12 +1,16 @@
 package com.superlee.my.shop.web.admin.service.impl;
 
+import com.superlee.my.shop.commons.dto.BaseResult;
+import com.superlee.my.shop.commons.utils.RegexpUtils;
 import com.superlee.my.shop.domain.TbUser;
 import com.superlee.my.shop.web.admin.dao.TbUserDao;
 import com.superlee.my.shop.web.admin.service.TbUserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,8 +32,30 @@ public class TbUserServiceImpl implements TbUserService {
     }
 
     @Override
-    public void insert(TbUser tbUser) {
-        tbUserDao.insert(tbUser);
+    public BaseResult save(TbUser tbUser) {
+        BaseResult baseResult = checkTbUser(tbUser);
+
+        // 通过验证
+        if (baseResult.getStatus() == BaseResult.STATUS_SUCCESS) {
+            tbUser.setUpdate(new Date());
+
+            // 新增用户
+            if (tbUser.getId() == null) {
+                //密码加密处理
+                tbUser.setPassword(DigestUtils.md5DigestAsHex(tbUser.getPassword().getBytes()));
+                tbUser.setCreated(new Date());
+                tbUserDao.insert(tbUser);
+            }
+
+            // 编辑用户
+            else {
+                tbUserDao.update(tbUser);
+            }
+
+            baseResult.setMessage("保存用户信息成功");
+        }
+
+        return baseResult;
     }
 
     @Override
@@ -67,4 +93,38 @@ public class TbUserServiceImpl implements TbUserService {
 
         return null;
     }
+    /**
+     * 用户信息的有效性验证
+     * @param tbUser
+     */
+    private BaseResult checkTbUser(TbUser tbUser) {
+        BaseResult baseResult = BaseResult.success();
+
+        // 非空判断
+        if (StringUtils.isBlank(tbUser.getEmail())) {
+            baseResult = BaseResult.fail("邮箱不能为空，请重新输入");
+        }
+
+        else if (!RegexpUtils.checkEmail(tbUser.getEmail())) {
+            baseResult.setMessage("邮箱格式不正确，请重新输入");
+        }
+
+        else if (StringUtils.isBlank(tbUser.getPassword())) {
+            baseResult = BaseResult.fail("密码不能为空，请重新输入");
+        }
+
+        else if (StringUtils.isBlank(tbUser.getUsername())) {
+            baseResult = BaseResult.fail("姓名不能为空，请重新输入");
+        }
+        else if (StringUtils.isBlank(tbUser.getPhone())) {
+            baseResult = BaseResult.fail("手机号不能为空，请重新输入");
+        }
+
+        else if (!RegexpUtils.checkPhone(tbUser.getPhone())) {
+            baseResult.setMessage("手机格式不正确，请重新输入");
+        }
+
+        return baseResult;
+    }
+
 }

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.DigestUtils;
-import org.springframework.util.FastByteArrayOutputStream;
 
 import java.util.Date;
 import java.util.List;
@@ -45,7 +44,7 @@ public class TbUserServiceTest {
         tbUser.setCreated(new Date());
         tbUser.setUpdate(new Date());
 
-        tbUserService.insert(tbUser);
+        tbUserService.save(tbUser);
     }
 
     @Test
