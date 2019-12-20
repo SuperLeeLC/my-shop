@@ -1,5 +1,6 @@
 package com.superlee.my.shop.web.admin.service.test;
 
+import com.sun.javaws.IconUtil;
 import com.superlee.my.shop.domain.TbUser;
 import com.superlee.my.shop.web.admin.service.TbUserService;
 import org.junit.Test;
@@ -73,4 +74,9 @@ public class TbUserServiceTest {
         }
     }
 
+    @Test
+    public void testMd5(){
+        String s = DigestUtils.md5DigestAsHex("123456".getBytes());
+        System.out.println(s);
+    }
 }
