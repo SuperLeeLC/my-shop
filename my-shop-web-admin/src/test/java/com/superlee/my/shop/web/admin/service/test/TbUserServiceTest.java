@@ -1,8 +1,9 @@
 package com.superlee.my.shop.web.admin.service.test;
 
-import com.sun.javaws.IconUtil;
+
 import com.superlee.my.shop.domain.TbUser;
 import com.superlee.my.shop.web.admin.service.TbUserService;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import java.util.List;
  * 描述 :    TODO
  */
 
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:spring-context.xml", "classpath:spring-context-druid.xml", "classpath:spring-context-mybatis.xml"})
 public class TbUserServiceTest {
@@ -36,6 +38,7 @@ public class TbUserServiceTest {
     }
 
     @Test
+    @Ignore
     public void testInsert() {
         TbUser tbUser = new TbUser();
         tbUser.setUsername("SuperLee");
@@ -60,6 +63,7 @@ public class TbUserServiceTest {
     }
 
     @Test
+    @Ignore
     public void testUpdate() {
         TbUser tbUser = tbUserService.getById(36L);
         tbUser.setUsername("SuperLee");
