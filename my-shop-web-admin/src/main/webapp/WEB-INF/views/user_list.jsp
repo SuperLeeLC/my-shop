@@ -9,6 +9,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sys" tagdir="/WEB-INF/tags/sys" %>
 
 <!DOCTYPE html>
 <html>
@@ -47,6 +48,51 @@
                                 ${baseResult.message}
                         </div>
                     </c:if>
+
+                    <!-- Horizontal Form -->
+                    <div class="box box-info box-info-search" style="display: none;">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">高级搜索</h3>
+                        </div>
+                        <!-- /.box-header -->
+                        <!-- form start -->
+                        <form:form cssClass="form-horizontal" action="/user/search" method="post" modelAttribute="tbUser">
+                            <div class="box-body">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-3">
+                                        <div class="form-group">
+                                            <label for="username" class="col-sm-4 control-label">姓名</label>
+                                            <div class="col-sm-8">
+                                                <form:input path="username" cssClass="form-control" placeholder="姓名"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-3">
+                                        <div class="form-group">
+                                            <label for="email" class="col-sm-4 control-label">邮箱</label>
+                                            <div class="col-sm-8">
+                                                <form:input path="email" cssClass="form-control" placeholder="邮箱"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-12 col-sm-3">
+                                        <div class="form-group">
+                                            <label for="phone" class="col-sm-4 control-label">手机</label>
+                                            <div class="col-sm-8">
+                                                <form:input path="phone" cssClass="form-control" placeholder="手机"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.box-body -->
+                            <div class="box-footer">
+                                <button type="submit" class="btn btn-info pull-right">搜索</button>
+                            </div>
+                            <!-- /.box-footer -->
+                        </form:form>
+                    </div>
+
                     <div class="box">
                         <div class="box-header">
                             <h3 class="box-title">用户列表</h3>
@@ -54,95 +100,89 @@
                             <div class="row">
                                 <div class="col-xs-12" style="margin-top: 20px;">
                                     <a href="/user/form" type="button" class="btn btn-sm btn-default"><i class="fa fa-plus"></i>新增</a>&nbsp;&nbsp;&nbsp;
-                                    <a href="#" type="button" class="btn btn-sm btn-default"><i class="fa fa-trash-o"></i>删除</a>&nbsp;&nbsp;&nbsp;
+                                    <a href="#" type="button" class="btn btn-sm btn-default" onclick="deleteMulti()"><i class="fa fa-trash-o"></i>删除</a>&nbsp;&nbsp;&nbsp;
                                     <a href="#" type="button" class="btn btn-sm btn-default"><i class="fa fa-download"></i>导入</a>&nbsp;&nbsp;&nbsp;
                                     <a href="#" type="button" class="btn btn-sm btn-default"><i class="fa fa-upload"></i>导出</a>&nbsp;&nbsp;&nbsp;
+                                    <button type="button" class="btn btn-sm btn-primary" onclick="$('.box-info-search').css('display') == 'none' ? $('.box-info-search').show('faster') : $('.box-info-search').hide('faster')"><i class="fa fa-search"></i>搜索</button>
                                 </div>
                             </div>
 
-                            <div class="row" style="margin-top: 20px;">
-                                <form:form cssClass="form-horizontal" action="/user/search" method="post" modelAttribute="tbUser">
-
-                                    <div class="row">
-                                        <div class="col-xs-3">
-                                            <div class="form-group">
-                                                <label for="username" class="col-sm-2 control-label">姓名</label>
-
-                                                <div class="col-sm-8">
-                                                    <form:input path="username" cssClass="form-control" placeholder="姓名"/>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-3">
-                                            <div class="form-group">
-                                                <label for="email" class="col-sm-2 control-label">邮箱</label>
-                                                <div class="col-sm-8">
-                                                    <form:input path="email" cssClass="form-control" placeholder="邮箱"/>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-3">
-                                            <div class="form-group">
-                                                <label for="phone" class="col-sm-2 control-label">手机</label>
-                                                <div class="col-sm-8">
-                                                    <form:input path="phone" cssClass="form-control" placeholder="手机"/>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row" style="padding-right: 70px;">
-                                        <div class="col-xs-12">
-                                            <button type="submit" class="btn btn-info pull-right">搜索</button>
-                                        </div>
-                                    </div>
-                                </form:form>
-                            </div>
-                        </div>
                         <!-- /.box-header -->
-                        <div class="box-body table-responsive no-padding">
-                            <table class="table table-hover">
-                                <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>用户名</th>
-                                    <th>手机号</th>
-                                    <th>邮箱</th>
-                                    <th>更新时间</th>
-                                    <th>操作</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <c:forEach items="${tbUsers}" var="tbUser">
+                            <div class="box-body table-responsive no-padding">
+                                <table class="table table-hover">
+                                    <thead>
                                     <tr>
-                                        <td>${tbUser.id}</td>
-                                        <td>${tbUser.username}</td>
-                                        <td>${tbUser.phone}</td>
-                                        <td>${tbUser.email}</td>
-                                        <td><fmt:formatDate value="${tbUser.update}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-                                        <td>
-                                            <a href="#" type="button" class="btn btn-sm btn-default"><i class="fa fa-search"></i>查看</a>&nbsp;&nbsp;&nbsp;
-                                            <a href="#" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>编辑</a>&nbsp;&nbsp;&nbsp;
-                                            <a href="#" type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i>删除</a>&nbsp;&nbsp;&nbsp;
-                                        </td>
+                                        <th><input type="checkbox" class="minimal icheck_master"></th>
+                                        <th>ID</th>
+                                        <th>用户名</th>
+                                        <th>手机号</th>
+                                        <th>邮箱</th>
+                                        <th>更新时间</th>
+                                        <th>操作</th>
                                     </tr>
-                                </c:forEach>
+                                    </thead>
+                                    <tbody>
+                                    <c:forEach items="${tbUsers}" var="tbUser">
+                                        <tr>
+                                            <td><input id="${tbUser.id}" type="checkbox" class="minimal"></td>
+                                            <td>${tbUser.id}</td>
+                                            <td>${tbUser.username}</td>
+                                            <td>${tbUser.phone}</td>
+                                            <td>${tbUser.email}</td>
+                                            <td><fmt:formatDate value="${tbUser.update}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                                            <td>
+                                                <a href="#" type="button" class="btn btn-sm btn-default"><i class="fa fa-search"></i>查看</a>&nbsp;&nbsp;&nbsp;
+                                                <a href="#" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>编辑</a>&nbsp;&nbsp;&nbsp;
+                                                <a href="#" type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i>删除</a>&nbsp;&nbsp;&nbsp;
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
 
-                                </tbody>
-                            </table>
-                        </div>
+                                    </tbody>
+                                </table>
+                            </div>
                         <!-- /.box-body -->
-                    </div>
+                        </div>
                     <!-- /.box -->
+                    </div>
                 </div>
             </div>
         </section>
     </div>
     <jsp:include page="../includes/copyright.jsp"/>
 </div>
-<jsp:include page="../includes/footer.jsp"/>
-</body>
 
+<jsp:include page="../includes/footer.jsp"/>
+
+<sys:modal message="第一个模态框" opts="confirm" url="/user/delete" />
+
+<script>
+    // $(function () {
+    //     $(".modal-footer .btn.btn-primary").bind("click", function () {
+    //         $("#modal-default").modal("hide");
+    //     });
+    // });
+    /**
+     * 批量删除
+     */
+    function deleteMulti() {
+        // 定义一个存放 ID 的数组
+        var idArray = new Array();
+
+        // 将选中元素的 ID 放入数组中
+        var _checkbox = App.getCheckbox();
+        _checkbox.each(function () {
+            var _id = $(this).attr("id");
+            if (_id != null && _id != "undefine" && $(this).is(":checked")) {
+                idArray.push(_id);
+            }
+        });
+
+        if (idArray.length === 0) {
+            $("#modal-default").modal("show");
+        }
+    }
+</script>
+
+</body>
 </html>
