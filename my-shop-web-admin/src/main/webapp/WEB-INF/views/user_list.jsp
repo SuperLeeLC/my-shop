@@ -100,7 +100,7 @@
                             <div class="row">
                                 <div class="col-xs-12" style="margin-top: 20px;">
                                     <a href="/user/form" type="button" class="btn btn-sm btn-default"><i class="fa fa-plus"></i>新增</a>&nbsp;&nbsp;&nbsp;
-                                    <a href="#" type="button" class="btn btn-sm btn-default" onclick="deleteMulti()"><i class="fa fa-trash-o"></i>删除</a>&nbsp;&nbsp;&nbsp;
+                                    <button type="button" class="btn btn-sm btn-default" onclick="App.deleteMulti('/user/delete')"><i class="fa fa-trash-o"></i>删除</button>&nbsp;&nbsp;&nbsp;
                                     <a href="#" type="button" class="btn btn-sm btn-default"><i class="fa fa-download"></i>导入</a>&nbsp;&nbsp;&nbsp;
                                     <a href="#" type="button" class="btn btn-sm btn-default"><i class="fa fa-upload"></i>导出</a>&nbsp;&nbsp;&nbsp;
                                     <button type="button" class="btn btn-sm btn-primary" onclick="$('.box-info-search').css('display') == 'none' ? $('.box-info-search').show('faster') : $('.box-info-search').hide('faster')"><i class="fa fa-search"></i>搜索</button>
@@ -154,35 +154,67 @@
 
 <jsp:include page="../includes/footer.jsp"/>
 
-<sys:modal message="第一个模态框" opts="confirm" url="/user/delete" />
+<sys:modal/>
 
-<script>
-    // $(function () {
-    //     $(".modal-footer .btn.btn-primary").bind("click", function () {
-    //         $("#modal-default").modal("hide");
-    //     });
-    // });
-    /**
-     * 批量删除
-     */
-    function deleteMulti() {
-        // 定义一个存放 ID 的数组
-        var idArray = new Array();
+<%--<script>--%>
+<%--    // $(function () {--%>
+<%--    //     $(".modal-footer .btn.btn-primary").bind("click", function () {--%>
+<%--    //         $("#modal-default").modal("hide");--%>
+<%--    //     });--%>
+<%--    // });--%>
 
-        // 将选中元素的 ID 放入数组中
-        var _checkbox = App.getCheckbox();
-        _checkbox.each(function () {
-            var _id = $(this).attr("id");
-            if (_id != null && _id != "undefine" && $(this).is(":checked")) {
-                idArray.push(_id);
-            }
-        });
+<%--    // 定义一个存放 ID　的数组　--%>
+<%--    var idArray = new Array();--%>
 
-        if (idArray.length === 0) {
-            $("#modal-default").modal("show");
-        }
-    }
-</script>
+<%--    /**--%>
+<%--     * 批量删除--%>
+<%--     */--%>
+<%--    function deleteMulti() {--%>
+
+<%--        // 将选中元素的 ID 放入数组中--%>
+<%--        var _checkbox = App.getCheckbox();--%>
+<%--        _checkbox.each(function () {--%>
+<%--            var _id = $(this).attr("id");--%>
+<%--            if (_id != null && _id != "undefine" && $(this).is(":checked")) {--%>
+<%--                idArray.push(_id);--%>
+<%--            }--%>
+<%--        });--%>
+
+<%--        if (idArray.length === 0) {--%>
+<%--            $("#modal-message").html("您还没有选择任何数据项，请至少选择一项");--%>
+<%--        }--%>
+
+<%--        else {--%>
+<%--            $("#modal-message").html("您确定删除数据项吗？ ");--%>
+<%--        }--%>
+
+<%--        $("#modal-default").modal("show");--%>
+<%--    }--%>
+
+<%--    $(function () {--%>
+<%--        $("#btnModalOk").bind("click", function () {--%>
+<%--            del(idArray, "/user/delete")--%>
+<%--        });--%>
+
+<%--        function del(idArray, url) {--%>
+<%--            if (idArray.length == 0) {--%>
+<%--                $("#modal-default").modal("hide");--%>
+<%--            }--%>
+
+<%--            else {--%>
+<%--                $.ajax({--%>
+<%--                    "url" : url,--%>
+<%--                    "type" : "POST",--%>
+<%--                    "data" : {"ids" : idArray.toString()},--%>
+<%--                    "dataType" : "JSON",--%>
+<%--                    "success" : function (data) {--%>
+<%--                        console.log(data);--%>
+<%--                    }--%>
+<%--                });--%>
+<%--            }--%>
+<%--        }--%>
+<%--    })--%>
+<%--</script>--%>
 
 </body>
 </html>
