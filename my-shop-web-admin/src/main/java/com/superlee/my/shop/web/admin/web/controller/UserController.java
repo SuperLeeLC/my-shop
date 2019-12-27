@@ -6,6 +6,7 @@ import com.superlee.my.shop.domain.TbUser;
 import com.superlee.my.shop.web.admin.service.TbUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,7 +16,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.jws.WebParam;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author : lichao892
@@ -119,5 +124,35 @@ public class UserController {
             baseResult = BaseResult.fail("删除用户失败");
         }
         return baseResult;
+    }
+
+    /**
+     * 分页查询
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "page", method = RequestMethod.GET)
+    public Map page(HttpServletRequest request) {
+        Map<String, Object> result = new HashMap<>();
+
+        String strDraw = request.getParameter("draw");
+        String strStart = request.getParameter("start");
+        String strLength = request.getParameter("length");
+
+        int draw = strDraw == null ? 0 : Integer.parseInt(strDraw);
+        int start = strStart == null ? 0 : Integer.parseInt(strStart);
+        int length = strLength == null ? 0 : Integer.parseInt(strLength);
+
+        // 封装 DataTables 需要的结果
+        List<TbUser> tbUsers = tbUserService.page(start, length);
+        int count = tbUserService.count();
+        result.put("draw", draw);
+        result.put("recordsTotal", count);
+        result.put("recordsFiltered", count);
+        result.put("data", tbUsers);
+        result.put("error", "");
+
+        return result;
     }
 }

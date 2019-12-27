@@ -92,59 +92,54 @@
                             <!-- /.box-footer -->
                         </form:form>
                     </div>
-
                     <div class="box">
                         <div class="box-header">
                             <h3 class="box-title">用户列表</h3>
-
-                            <div class="row">
-                                <div class="col-xs-12" style="margin-top: 20px;">
-                                    <a href="/user/form" type="button" class="btn btn-sm btn-default"><i class="fa fa-plus"></i>新增</a>&nbsp;&nbsp;&nbsp;
-                                    <button type="button" class="btn btn-sm btn-default" onclick="App.deleteMulti('/user/delete')"><i class="fa fa-trash-o"></i>删除</button>&nbsp;&nbsp;&nbsp;
-                                    <a href="#" type="button" class="btn btn-sm btn-default"><i class="fa fa-download"></i>导入</a>&nbsp;&nbsp;&nbsp;
-                                    <a href="#" type="button" class="btn btn-sm btn-default"><i class="fa fa-upload"></i>导出</a>&nbsp;&nbsp;&nbsp;
-                                    <button type="button" class="btn btn-sm btn-primary" onclick="$('.box-info-search').css('display') == 'none' ? $('.box-info-search').show('faster') : $('.box-info-search').hide('faster')"><i class="fa fa-search"></i>搜索</button>
-                                </div>
-                            </div>
-
-                        <!-- /.box-header -->
-                            <div class="box-body table-responsive no-padding">
-                                <table class="table table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th><input type="checkbox" class="minimal icheck_master"></th>
-                                        <th>ID</th>
-                                        <th>用户名</th>
-                                        <th>手机号</th>
-                                        <th>邮箱</th>
-                                        <th>更新时间</th>
-                                        <th>操作</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <c:forEach items="${tbUsers}" var="tbUser">
-                                        <tr>
-                                            <td><input id="${tbUser.id}" type="checkbox" class="minimal"></td>
-                                            <td>${tbUser.id}</td>
-                                            <td>${tbUser.username}</td>
-                                            <td>${tbUser.phone}</td>
-                                            <td>${tbUser.email}</td>
-                                            <td><fmt:formatDate value="${tbUser.update}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-                                            <td>
-                                                <a href="#" type="button" class="btn btn-sm btn-default"><i class="fa fa-search"></i>查看</a>&nbsp;&nbsp;&nbsp;
-                                                <a href="#" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>编辑</a>&nbsp;&nbsp;&nbsp;
-                                                <a href="#" type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i>删除</a>&nbsp;&nbsp;&nbsp;
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        <!-- /.box-body -->
                         </div>
-                    <!-- /.box -->
+
+                        <div class="box-body">
+                           <a href="/user/form" type="button" class="btn btn-sm btn-default"><i class="fa fa-plus"></i>新增</a>&nbsp;&nbsp;&nbsp;
+                           <button type="button" class="btn btn-sm btn-default" onclick="App.deleteMulti('/user/delete')"><i class="fa fa-trash-o"></i>删除</button>&nbsp;&nbsp;&nbsp;
+                           <a href="#" type="button" class="btn btn-sm btn-default"><i class="fa fa-download"></i>导入</a>&nbsp;&nbsp;&nbsp;
+                           <a href="#" type="button" class="btn btn-sm btn-default"><i class="fa fa-upload"></i>导出</a>&nbsp;&nbsp;&nbsp;
+                           <button type="button" class="btn btn-sm btn-primary" onclick="$('.box-info-search').css('display') == 'none' ? $('.box-info-search').show('faster') : $('.box-info-search').hide('faster')"><i class="fa fa-search"></i>搜索</button>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body table-responsive">
+                        <table id="dataTable" class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th><input type="checkbox" class="minimal icheck_master"></th>
+                                <th>ID</th>
+                                <th>用户名</th>
+                                <th>手机号</th>
+                                <th>邮箱</th>
+                                <th>更新时间</th>
+                                <th>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+<%--                            <c:forEach items="${tbUsers}" var="tbUser">--%>
+<%--                                <tr>--%>
+<%--                                    <td><input id="${tbUser.id}" type="checkbox" class="minimal"></td>--%>
+<%--                                    <td>${tbUser.id}</td>--%>
+<%--                                    <td>${tbUser.username}</td>--%>
+<%--                                    <td>${tbUser.phone}</td>--%>
+<%--                                    <td>${tbUser.email}</td>--%>
+<%--                                    <td><fmt:formatDate value="${tbUser.update}" pattern="yyyy-MM-dd HH:mm:ss"/></td>--%>
+<%--                                    <td>--%>
+<%--                                        <a href="#" type="button" class="btn btn-sm btn-default"><i class="fa fa-search"></i>查看</a>&nbsp;&nbsp;&nbsp;--%>
+<%--                                        <a href="#" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>编辑</a>&nbsp;&nbsp;&nbsp;--%>
+<%--                                        <a href="#" type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i>删除</a>&nbsp;&nbsp;&nbsp;--%>
+<%--                                    </td>--%>
+<%--                                </tr>--%>
+<%--                            </c:forEach>--%>
+                            </tbody>
+                        </table>
                     </div>
+                    <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
                 </div>
             </div>
         </section>
@@ -156,65 +151,45 @@
 
 <sys:modal/>
 
-<%--<script>--%>
-<%--    // $(function () {--%>
-<%--    //     $(".modal-footer .btn.btn-primary").bind("click", function () {--%>
-<%--    //         $("#modal-default").modal("hide");--%>
-<%--    //     });--%>
-<%--    // });--%>
-
-<%--    // 定义一个存放 ID　的数组　--%>
-<%--    var idArray = new Array();--%>
-
-<%--    /**--%>
-<%--     * 批量删除--%>
-<%--     */--%>
-<%--    function deleteMulti() {--%>
-
-<%--        // 将选中元素的 ID 放入数组中--%>
-<%--        var _checkbox = App.getCheckbox();--%>
-<%--        _checkbox.each(function () {--%>
-<%--            var _id = $(this).attr("id");--%>
-<%--            if (_id != null && _id != "undefine" && $(this).is(":checked")) {--%>
-<%--                idArray.push(_id);--%>
-<%--            }--%>
-<%--        });--%>
-
-<%--        if (idArray.length === 0) {--%>
-<%--            $("#modal-message").html("您还没有选择任何数据项，请至少选择一项");--%>
-<%--        }--%>
-
-<%--        else {--%>
-<%--            $("#modal-message").html("您确定删除数据项吗？ ");--%>
-<%--        }--%>
-
-<%--        $("#modal-default").modal("show");--%>
-<%--    }--%>
-
-<%--    $(function () {--%>
-<%--        $("#btnModalOk").bind("click", function () {--%>
-<%--            del(idArray, "/user/delete")--%>
-<%--        });--%>
-
-<%--        function del(idArray, url) {--%>
-<%--            if (idArray.length == 0) {--%>
-<%--                $("#modal-default").modal("hide");--%>
-<%--            }--%>
-
-<%--            else {--%>
-<%--                $.ajax({--%>
-<%--                    "url" : url,--%>
-<%--                    "type" : "POST",--%>
-<%--                    "data" : {"ids" : idArray.toString()},--%>
-<%--                    "dataType" : "JSON",--%>
-<%--                    "success" : function (data) {--%>
-<%--                        console.log(data);--%>
-<%--                    }--%>
-<%--                });--%>
-<%--            }--%>
-<%--        }--%>
-<%--    })--%>
-<%--</script>--%>
+<script>   
+    $(function () {
+        $("#dataTable").DataTable({
+            "paging" : true,
+            "info" : true,
+            "lengthChange" : false,
+            "ordering" : false,
+            "processing" : true,
+            "searching" : false,
+            "serverSide" : true,
+            "deferRender" : true,
+            "ajax" : {
+                "url" : "/user/page"
+            },
+            "columns" : [
+                {
+                    "data" : function (row, type, val, meta) {
+                        return '<input id="' + row.id + '" type="checkbox" class="minimal" />';
+                    }
+                },
+                {"data" : "id"},
+                {"data" : "username"},
+                {"data" : "phone"},
+                {"data" : "email"},
+                {"data" : "update"},
+                {
+                    "data" : function (row, type, val, meta) {
+                        return '<a href="#" type="button" class="btn btn-sm btn-default"><i class="fa fa-search"></i>查看</a>&nbsp;&nbsp;&nbsp;' +
+                               '<a href="#" type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>编辑</a>&nbsp;&nbsp;&nbsp;' +
+                               '<a href="#" type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i>删除</a>';
+                    }
+                }
+            ],
+            "drawCallback" : function (settings) {
+                App.init();
+            }
+        });
+    });
+</script>
 
 </body>
 </html>
